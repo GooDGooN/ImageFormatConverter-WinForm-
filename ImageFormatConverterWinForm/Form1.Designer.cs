@@ -27,6 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             imporFolderButton = new Button();
             importFileButton = new Button();
             exportButton = new Button();
@@ -35,6 +36,8 @@
             createDirectoryCheckBox = new CheckBox();
             label1 = new Label();
             fileListBox = new ListBox();
+            form1BindingSource = new BindingSource(components);
+            ((System.ComponentModel.ISupportInitialize)form1BindingSource).BeginInit();
             SuspendLayout();
             // 
             // imporFolderButton
@@ -45,6 +48,7 @@
             imporFolderButton.TabIndex = 1;
             imporFolderButton.Text = "Import Folder";
             imporFolderButton.UseVisualStyleBackColor = true;
+            imporFolderButton.Click += OnImportFolderClick;
             // 
             // importFileButton
             // 
@@ -52,8 +56,9 @@
             importFileButton.Name = "importFileButton";
             importFileButton.Size = new Size(175, 38);
             importFileButton.TabIndex = 2;
-            importFileButton.Text = "button2";
+            importFileButton.Text = "Import File";
             importFileButton.UseVisualStyleBackColor = true;
+            importFileButton.Click += OnImportFileClick;
             // 
             // exportButton
             // 
@@ -61,8 +66,9 @@
             exportButton.Name = "exportButton";
             exportButton.Size = new Size(175, 38);
             exportButton.TabIndex = 3;
-            exportButton.Text = "button3";
+            exportButton.Text = "Export";
             exportButton.UseVisualStyleBackColor = true;
+            exportButton.Click += OnExportClick;
             // 
             // removeSelectedButton
             // 
@@ -70,11 +76,14 @@
             removeSelectedButton.Name = "removeSelectedButton";
             removeSelectedButton.Size = new Size(175, 38);
             removeSelectedButton.TabIndex = 4;
-            removeSelectedButton.Text = "button4";
+            removeSelectedButton.Text = "Remove Selected";
             removeSelectedButton.UseVisualStyleBackColor = true;
+            removeSelectedButton.Click += OnRemoveClick;
             // 
             // formatComboBox
             // 
+            formatComboBox.AllowDrop = true;
+            formatComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             formatComboBox.FormattingEnabled = true;
             formatComboBox.Location = new Point(421, 319);
             formatComboBox.Name = "formatComboBox";
@@ -84,6 +93,8 @@
             // createDirectoryCheckBox
             // 
             createDirectoryCheckBox.AutoSize = true;
+            createDirectoryCheckBox.Checked = true;
+            createDirectoryCheckBox.CheckState = CheckState.Checked;
             createDirectoryCheckBox.Location = new Point(421, 359);
             createDirectoryCheckBox.Name = "createDirectoryCheckBox";
             createDirectoryCheckBox.Size = new Size(141, 24);
@@ -104,16 +115,26 @@
             // 
             fileListBox.AllowDrop = true;
             fileListBox.FormattingEnabled = true;
+            fileListBox.HorizontalScrollbar = true;
             fileListBox.Location = new Point(34, 59);
             fileListBox.Name = "fileListBox";
+            fileListBox.ScrollAlwaysVisible = true;
+            fileListBox.SelectionMode = SelectionMode.MultiExtended;
             fileListBox.Size = new Size(352, 324);
             fileListBox.TabIndex = 0;
-            fileListBox.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            fileListBox.SelectedValueChanged += OnSelectChange;
+            fileListBox.DragDrop += OnDropFile;
+            fileListBox.DragEnter += OnDragFileEnter;
+            // 
+            // form1BindingSource
+            // 
+            form1BindingSource.DataSource = typeof(Form1);
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(622, 433);
             Controls.Add(label1);
@@ -126,6 +147,7 @@
             Controls.Add(fileListBox);
             Name = "Form1";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)form1BindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -139,5 +161,6 @@
         private CheckBox createDirectoryCheckBox;
         private Label label1;
         private ListBox fileListBox;
+        private BindingSource form1BindingSource;
     }
 }
