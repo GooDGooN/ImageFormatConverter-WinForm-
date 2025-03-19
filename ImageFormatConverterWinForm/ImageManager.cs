@@ -57,11 +57,13 @@ public class ImageManager
                 Directory.CreateDirectory(Path.Combine(olddir, "ConvertedImage"));
             }
         }
+
         foreach (var file in files)
         {
             var formatStr = format.ToString();
             var fileName = Path.Combine(directory, Path.GetFileName(file));
             fileName = Path.ChangeExtension(fileName, formatStr);
+
             try
             {
                 using (var image = Image.FromFile(file))

@@ -23,6 +23,7 @@ public partial class Form1 : Form
     public Form1()
     {
         InitializeComponent();
+
         foreach (var format in formatItems)
         {
             formatComboBox.Items.Add(format);
@@ -54,6 +55,7 @@ public partial class Form1 : Form
         dialog.Title = "Select Image Files";
         dialog.Multiselect = true;
         dialog.Filter = "Image Files (*.png, *.gif, *.jpeg, *.bmp, *.webp, *.ico|*.png;*.gif;*.jpeg;*.bmp;*.webp;*.ico|All files (*.*)|*.*";
+
         if (dialog.ShowDialog() == DialogResult.OK)
         {
             var files = ImageManager.GetImageDirectorys(dialog.FileNames);
@@ -70,12 +72,14 @@ public partial class Form1 : Form
         if (importedFiles.Count > 0)
         {
             var dialog = new FolderBrowserDialog();
+
             if (dialog.ShowDialog() != DialogResult.OK)
             {
                 return;
             }
 
             var dir = dialog.SelectedPath;
+
             if (!Directory.Exists(dir))
             {
                 MessageBox.Show("Worng Action!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -123,6 +127,7 @@ public partial class Form1 : Form
         if (dropted is string[] files)
         {
             var fileList = files.ToList<string>();
+
             for (int i = 0; i < fileList.Count; i++)
             {
                 if (Directory.Exists(fileList[i]))
