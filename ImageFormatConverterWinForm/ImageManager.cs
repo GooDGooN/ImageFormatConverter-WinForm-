@@ -50,30 +50,25 @@ public class ImageManager
     {
         if (createDirectory)
         {
-            var newdir = Path.Combine(directory, "ConvertedImage");
-            if (!Directory.Exists(newdir))
+            directory = Path.Combine(directory, "ConvertedImage");
+            if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(Path.Combine(directory, "ConvertedImage"));
-            }
-            else
-            {
-                createDirectory = false;
             }
         }
         foreach (var file in files)
         {
             var formatStr = format.ToString();
-            var fileName = Path.ChangeExtension(file, formatStr);
-            var directoryInsertIndex = fileName.LastIndexOf(Path.DirectorySeparatorChar);
-            if (createDirectory)
-            {
-                fileName = fileName.Insert(directoryInsertIndex, Path.DirectorySeparatorChar + "ConvertedImage");
-            }
+            var fileName = Path.Combine(directory, Path.GetFileName(file));
+            fileName = Path.ChangeExtension(fileName, formatStr);
             try
             {
                 using (var image = Image.FromFile(file))
                 {
-                    image.Save(fileName, formats[(int)format]);
+                    if (!Path.Exists(fileName))
+                    {
+                        image.Save(fileName, formats[(int)format]);
+                    }
                 }
             }
             catch

@@ -91,7 +91,6 @@ public partial class Form1 : Form
     public void OnRemoveClick(object sender, EventArgs e)
     {
         isDelete = true;
-        MessageBox.Show(selectedChanges.Count.ToString());
         foreach (var item in selectedChanges)
         {
             importedFiles.Remove(item);
@@ -121,11 +120,26 @@ public partial class Form1 : Form
         var dropted = e.Data.GetData(DataFormats.FileDrop);
         if (dropted is string[] files)
         {
-            var images = ImageManager.GetImageDirectorys(files);
+            var fileList = files.ToList<string>();
+            for (int i = 0; i < fileList.Count; i++)
+            {
+                if (Directory.Exists(fileList[i]))
+                {
+                    var insideFiles = Directory.GetFiles(fileList[i]);
+                    fileList.RemoveAt(i);
+                    fileList.AddRange(insideFiles);
+                    i--;
+                }
+            }
+
+            var images = ImageManager.GetImageDirectorys(fileList.ToArray());
+
             foreach (var image in images)
             {
                 importedFiles.Add(image);
             }
+
+            MessageBox.Show($"{fileList.Count} Files imported");
         }
     }
 }
