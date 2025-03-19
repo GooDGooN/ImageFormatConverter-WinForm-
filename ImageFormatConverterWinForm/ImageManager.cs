@@ -50,10 +50,11 @@ public class ImageManager
     {
         if (createDirectory)
         {
+            var olddir = directory;
             directory = Path.Combine(directory, "ConvertedImage");
             if (!Directory.Exists(directory))
             {
-                Directory.CreateDirectory(Path.Combine(directory, "ConvertedImage"));
+                Directory.CreateDirectory(Path.Combine(olddir, "ConvertedImage"));
             }
         }
         foreach (var file in files)
