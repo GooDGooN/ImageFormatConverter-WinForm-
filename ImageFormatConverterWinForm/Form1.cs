@@ -44,6 +44,7 @@ public partial class Form1 : Form
                 importedFiles.Add(file);
             }
 
+            MessageBox.Show($"{files.Length} Files imported");
         }
     }
 
@@ -60,6 +61,7 @@ public partial class Form1 : Form
             {
                 importedFiles.Add(file);
             }
+            MessageBox.Show($"{files.Length} Files imported");
         }
     }
 
